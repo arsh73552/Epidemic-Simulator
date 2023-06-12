@@ -1,6 +1,6 @@
 .coverage
 .gitignore
-MIT-LICENSE.txt
+LICENSE.txt
 README.md
 pyproject.toml
 requirements.txt
@@ -10,6 +10,14 @@ setup.py
 tox.ini
 .github/workflows/tests.yml
 .tox/dist/Simulator-0.0.10.tar.gz
+pip-wheel-metadata/Simulator-0.0.10.dist-info/METADATA
+pip-wheel-metadata/Simulator-0.0.10.dist-info/top_level.txt
+pip-wheel-metadata/Simulator.egg-info/PKG-INFO
+pip-wheel-metadata/Simulator.egg-info/SOURCES.txt
+pip-wheel-metadata/Simulator.egg-info/dependency_links.txt
+pip-wheel-metadata/Simulator.egg-info/not-zip-safe
+pip-wheel-metadata/Simulator.egg-info/requires.txt
+pip-wheel-metadata/Simulator.egg-info/top_level.txt
 src/README.md
 src/__init__.py
 src/Simulator/3DSphere.py
@@ -28,5 +36,6 @@ src/Simulator.egg-info/requires.txt
 src/Simulator.egg-info/top_level.txt
 src/Simulator/__pycache__/__init__.cpython-38.pyc
 src/Simulator/__pycache__/helper.cpython-38.pyc
+src/Simulator/__pycache__/init.cpython-38.pyc
 tests/test_helper.py
 tests/__pycache__/test_helper.cpython-38-pytest-6.2.5.pyc

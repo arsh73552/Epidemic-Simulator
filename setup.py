@@ -9,7 +9,6 @@ setup(
     url="https://github.com/arsh73552/Epidemic-Simulator",
     author="Arshdeep Singh, Mandeep Mahra",
     author_email="arsh.edu2002@gmail.com",
-    license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3.10",

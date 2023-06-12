@@ -26,7 +26,7 @@ class surfaceExample(ThreeDScene, helperClass, Initialization):
         x_coordinates: typing.List[float] = []
         y_coordinates: typing.List[float] = []
         attempts = 0
-        while len(x_coordinates) < 100 and attempts < self.max_attempts:
+        while len(x_coordinates) < 1 and attempts < self.max_attempts:
             x = random.randint(0, 1920 - 1)  # 0-1920 960
             y = random.randint(0, 1080 - 1)  # 0-1080 540
             r, g, b = pixel_array.getpixel((x, y))
@@ -40,7 +40,7 @@ class surfaceExample(ThreeDScene, helperClass, Initialization):
         dots = SGroup()
         for i in range(len(x_coordinates)):
             x, y, z = self.custom_uv_func(x_coordinates[i], y_coordinates[i], self.canvas_height, self.canvas_width, self.radius)
-            sphr = Sphere(radius=0.03).set_color(RED, opacity=1).move_to([x, y, z])
+            sphr = Sphere(radius=0.1).set_color(RED, opacity=1).move_to([x, y, z])
             dots.add(sphr)
 
         sphere.set_color(color=BLACK, opacity=1)
