@@ -9,6 +9,6 @@ class Initialization:
         self.num_points = 100
         self.initial_vector_x = -7.11
         self.initial_vector_y = 4
-        self.continentLocations = [[0, 0, 0],[1, 1, 0],[-2, -1, 0]] # Europe, Asia, NA
+        self.continentLocations = [[0, 0, 0], [1, 1, 0], [-2, -1, 0]]  # Europe, Asia, NA
         self.INFECTION_RATE = 0.5
         self.max_attempts = 100000

@@ -1,4 +1,6 @@
 import numpy as np
+
+
 class helperClass:
     def custom_uv_func(self, x, y, height, width, desiredRadius):
 
@@ -8,4 +10,3 @@ class helperClass:
         yr = desiredRadius * np.sin(φ) * np.sin(θ)
         zr = desiredRadius * np.cos(φ)
         return (xr, yr, zr)
-
