@@ -1,0 +1,6 @@
+manimgl>=1.6.1
+numpy>=1.23.5
+
+[dev]
+pytest>=7.0
+twine>=4.0.2

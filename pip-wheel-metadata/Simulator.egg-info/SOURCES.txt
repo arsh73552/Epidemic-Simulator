@@ -10,6 +10,12 @@ setup.py
 tox.ini
 .github/workflows/tests.yml
 .tox/dist/Simulator-0.0.10.tar.gz
+C:/Users/arsh0/OneDrive/Documents/GitHub/MissionLearnManim/pip-wheel-metadata/Simulator.egg-info/PKG-INFO
+C:/Users/arsh0/OneDrive/Documents/GitHub/MissionLearnManim/pip-wheel-metadata/Simulator.egg-info/SOURCES.txt
+C:/Users/arsh0/OneDrive/Documents/GitHub/MissionLearnManim/pip-wheel-metadata/Simulator.egg-info/dependency_links.txt
+C:/Users/arsh0/OneDrive/Documents/GitHub/MissionLearnManim/pip-wheel-metadata/Simulator.egg-info/not-zip-safe
+C:/Users/arsh0/OneDrive/Documents/GitHub/MissionLearnManim/pip-wheel-metadata/Simulator.egg-info/requires.txt
+C:/Users/arsh0/OneDrive/Documents/GitHub/MissionLearnManim/pip-wheel-metadata/Simulator.egg-info/top_level.txt
 src/README.md
 src/__init__.py
 src/Simulator/3DSphere.py
