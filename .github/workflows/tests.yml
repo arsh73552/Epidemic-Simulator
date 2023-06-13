@@ -24,7 +24,7 @@ jobs:
         pip install tox tox-gh-actions
         sudo apt install python3-setuptools
         sudo apt install python3-setuptools libpango1.0-dev
-        pip install -r docs/requirements.txt
         pip install -r requirements.txt
+        pip install -r requirements_dev.txt
     - name: Test with tox
       run: tox
