@@ -53,7 +53,7 @@ class intro(Scene):
 
         dots = VGroup()
 
-        while(len(queue) > 0):
+        while (len(queue) > 0):
 
             temp = queue.pop(0)
             temp_x = temp[0]
@@ -62,7 +62,7 @@ class intro(Scene):
             for i in range(0, len(x_coordinates)):
                 if (x_coordinates[i], y_coordinates[i]) in visited:
                     continue
-                if((abs(temp_x - x_coordinates[i]) + abs(temp_y - y_coordinates[i])) < 1.25):
+                if ((abs(temp_x - x_coordinates[i]) + abs(temp_y - y_coordinates[i])) < 1.25):
                     dot = Dot(color=RED).move_to([x_coordinates[i], y_coordinates[i], 0])
                     dots.add(dot)
                     visited[(x_coordinates[i], y_coordinates[i])] = True
