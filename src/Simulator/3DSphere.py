@@ -1,10 +1,11 @@
 from manimlib import ThreeDScene, ThreeDCamera, ImageMobject, Sphere, SGroup, TexturedSurface
-from manimlib import ShowCreation, SurfaceMesh
-from manimlib import RED, BLUE, BLACK, DEGREES, IN
+from manimlib import ShowCreation, SurfaceMesh, ThreeDAxes
+from manimlib import RED, BLUE, BLACK, DEGREES, IN, GREEN
 import random
 import time
 from helper import helperClass
 from init import Initialization
+import math
 import typing
 
 
@@ -40,7 +41,7 @@ class surfaceExample(ThreeDScene, helperClass, Initialization):
         dots = SGroup()
         for i in range(len(x_coordinates)):
             x, y, z = self.custom_uv_func(x_coordinates[i], y_coordinates[i], self.canvas_height, self.canvas_width, self.radius)
-            sphr = Sphere(radius=0.1).set_color(RED, opacity=1).move_to([x, y, z])
+            sphr = Sphere(radius=0.03).set_color(GREEN, opacity=1).move_to([x, y, z])
             dots.add(sphr)
 
         sphere.set_color(color=BLACK, opacity=1)
@@ -60,9 +61,28 @@ class surfaceExample(ThreeDScene, helperClass, Initialization):
             theta=-30 * DEGREES,
             phi=70 * DEGREES,
         )
-
         surface = surfaces[0]
-        self.play(*[ShowCreation(surface), ShowCreation(surface.mesh), ShowCreation(dots)])
+        self.play(*[ShowCreation(surface), ShowCreation(surface.mesh)])
+        self.play(ShowCreation(dots))
+        self.add(Sphere(radius=0.1).move_to([-0.022222222222222143, 2.988888888888889, 0.0]))
+        self.play(ShowCreation(ThreeDAxes(
+            x_range=[-5, 5],
+            y_range=[-5, 5],
+            z_range=[-5, 5]
+        )))
+
+    def on_key_press(self, symbol: int, modifiers: int):
+        from pyglet.window import key as pyglet_key
+        if symbol == pyglet_key.G:
+            self.patient_zero = Sphere(radius=0.1).set_color(RED)
+            self.patient_one = Sphere(radius=0.1).set_color(RED)
+            self.play(ShowCreation(self.patient_zero))
+            x, y, z = self.mouse_point.get_center()
+            print(x, y, z)
+            print(self.camera.frame.uniforms["orientation"])
+            z = math.sqrt(self.radius**2 - x**2 - y**2)
+            self.play(self.patient_one.animate.move_to([x, y, z]))
+        return super().on_key_press(symbol, modifiers)
 
 
 class Main():
