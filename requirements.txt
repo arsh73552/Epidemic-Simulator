@@ -23,6 +23,7 @@ screeninfo
 skia-pathops
 svgelements>=1.8.1
 sympy
+pytest
 tqdm
 typing-extensions; python_version < "3.11"
 validators
