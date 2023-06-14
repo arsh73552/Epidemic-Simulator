@@ -1,12 +1,12 @@
-from manimlib import Scene, Text, VGroup, Square, Dot, RED
+from manimlib import Scene, Text, RED, GREEN
+from manimlib import VGroup, Square, Dot, Write
 import random
 
 
 class intro(Scene):
     def construct(self):
         name = Text("Epidemic Simulator").scale(2)
-        self.add(name)
-        self.wait(3)
+        self.play(Write(name), run_time=3)
         self.remove(name)
 
         description = VGroup()
@@ -17,8 +17,7 @@ class intro(Scene):
         description.add(line2)
         description.add(line3)
 
-        self.add(description)
-        self.wait(4)
+        self.play(Write(description), run_time=4)
         self.remove(description)
 
         info = VGroup()
@@ -26,7 +25,7 @@ class intro(Scene):
         info.add(title)
         info1 = Text("Red = Infected").move_to([0, 3, 0]).scale(0.5)
         info.add(info1)
-        info2 = Text("white = Healthy").move_to([0, 2.5, 0]).scale(0.5)
+        info2 = Text("Green = Healthy").move_to([0, 2.5, 0]).scale(0.5)
         info.add(info2)
 
         self.add(info)
@@ -42,7 +41,7 @@ class intro(Scene):
             y = random.randint(-2, 1) + random.random()
             x_coordinates.append(x)
             y_coordinates.append(y)
-            dot = Dot(radius=0.05).move_to([x, y, 0])
+            dot = Dot(radius=0.05, color=GREEN).move_to([x, y, 0])
             people.add(dot)
             self.add(dot)
 
@@ -53,7 +52,7 @@ class intro(Scene):
 
         dots = VGroup()
 
-        while (len(queue) > 0):
+        while len(queue) > 0:
 
             temp = queue.pop(0)
             temp_x = temp[0]
@@ -72,3 +71,4 @@ class intro(Scene):
 
         self.wait(2)
         self.remove(name, people, dots, sq, info)
+        self.interact()
