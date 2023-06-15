@@ -1,6 +1,5 @@
 from manimlib import Scene, RED, GREEN, GREY, BarChart
 from manimlib import VGroup, Square, Dot
-
 import random
 
 
