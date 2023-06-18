@@ -1,14 +1,14 @@
-from manimlib import Scene, Text, RED, GREEN
-from manimlib import VGroup, Square, Dot, Write
+from manimlib import Text, RED, GREEN
+from manimlib import VGroup, Square, Dot, Write, FadeOut, ShowCreation
 import random
 
 
-class intro(Scene):
-    def construct(self):
+class intro():
+    def construct_animation(self):
+        finalAnimations = []
         name = Text("Epidemic Simulator").scale(2)
-        self.play(Write(name), run_time=3)
-        self.remove(name)
-
+        finalAnimations.append((Write(name), 2.0))
+        finalAnimations.append((FadeOut(name), -1.0))
         description = VGroup()
         line1 = Text("An interactive model that uses the").move_to([0, 1, 0])
         line2 = Text("specified infection rate to mimic the spread").move_to([0, 0, 0])
@@ -17,8 +17,8 @@ class intro(Scene):
         description.add(line2)
         description.add(line3)
 
-        self.play(Write(description), run_time=4)
-        self.remove(description)
+        finalAnimations.append((Write(description), 5.0))
+        finalAnimations.append((FadeOut(description), -1.0))
 
         info = VGroup()
         title = Text("Infection spread in a confined setting").move_to([0, 3.5, 0]).scale(0.75)
@@ -28,10 +28,10 @@ class intro(Scene):
         info2 = Text("Green = Healthy").move_to([0, 2.5, 0]).scale(0.5)
         info.add(info2)
 
-        self.add(info)
+        finalAnimations.append((Write(info), 2.0))
 
         sq = Square().scale(2.2)
-        self.add(sq)
+        finalAnimations.append((ShowCreation(sq), -1.0))
         x_coordinates = []
         y_coordinates = []
 
@@ -43,7 +43,7 @@ class intro(Scene):
             y_coordinates.append(y)
             dot = Dot(radius=0.05, color=GREEN).move_to([x, y, 0])
             people.add(dot)
-            self.add(dot)
+            finalAnimations.append((ShowCreation(dot), 0.01))
 
         infection_point = [x_coordinates[0], y_coordinates[0]]
         queue = []
@@ -66,9 +66,12 @@ class intro(Scene):
                     dots.add(dot)
                     visited[(x_coordinates[i], y_coordinates[i])] = True
                     queue.append([x_coordinates[i], y_coordinates[i]])
-                    self.add(dot)
-                    self.wait(0.0001)
-
-        self.wait(2)
-        self.remove(name, people, dots, sq, info)
-        self.interact()
+                    finalAnimations.append((ShowCreation(dot), 0.01))
+        self.dots = dots
+        self.sq = sq
+        finalAnimations.append((FadeOut(info), -1))
+        finalAnimations.append((FadeOut(sq), -1))
+        finalAnimations.append((FadeOut(dots), -1))
+        finalAnimations.append((FadeOut(people), -1))
+        return finalAnimations
+        # self.remove(name, people, dots, sq, info)

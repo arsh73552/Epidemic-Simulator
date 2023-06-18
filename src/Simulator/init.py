@@ -1,6 +1,6 @@
 class Initialization:
     def __init__(self):
-        self.image_path = "map1.jpg"
+        self.image_path = "test.jpg"
         self.radius = 3
         self.pixel_height = 1080
         self.pixel_width = 1920
@@ -11,4 +11,4 @@ class Initialization:
         self.initial_vector_y = 4
         self.continentLocations = [[0, 0, 0], [1, 1, 0], [-2, -1, 0]]  # Europe, Asia, NA
         self.INFECTION_RATE = 0.5
-        self.max_attempts = 100000
+        self.max_attempts = 10000
