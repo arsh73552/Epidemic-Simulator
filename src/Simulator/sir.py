@@ -1,5 +1,5 @@
-from manimlib import Scene, RED, GREEN, GREY, BarChart
-from manimlib import VGroup, Square, Dot
+from manimlib import Scene, RED, GREEN, GREY, Rectangle, Brace, RIGHT
+from manimlib import VGroup, Square, Dot, always_redraw, Text
 import random
 
 
@@ -22,18 +22,66 @@ class SirGraph(Scene):
             people.add(dot)
             self.add(dot)
         values = [1, 0, 0]
+        custom_width = 5
 
-        chart = BarChart(
-            values,
-            bar_colors=[GREEN, RED, GREY],
-            bar_names=["Susuptable", "Infected", "Removed"],
-            x_length=10,
-            y_axis_config={"font_size": 24},
+        infected = always_redraw(
+            lambda: Rectangle(
+                color=RED,
+                fill_color=RED,
+                fill_opacity=0.7,
+                width=custom_width,
+                height=values[1]*4
+            ).move_to([-4, -2 + (values[1] * 2), 0])
+        )
+        removed = always_redraw(
+            lambda: Rectangle(
+                color=GREY,
+                fill_color=GREY,
+                fill_opacity=0.7,
+                width=custom_width,
+                height=values[2]*4
+            ).move_to(infected.get_top() + [0, values[2]*2, 0])
+        )
+        susceptible = always_redraw(
+            lambda: Rectangle(
+                color=GREEN,
+                fill_color=GREEN,
+                fill_opacity=0.7,
+                width=custom_width,
+                height=values[0]*4
+            ).move_to(removed.get_top() + [0, values[0] * 2, 0])
         )
 
-        chart.scale(0.75)
-        chart.move_to([-3, 0, 0])
-        self.add(chart)
+        sus_brace = always_redraw(
+            lambda: Brace(susceptible, [1, 0, 0])
+        )
+        infected_brace = always_redraw(
+            lambda: Brace(infected, [1, 0, 0])
+        )
+        removed_brace = always_redraw(
+            lambda: Brace(removed, [1, 0, 0])
+        )
+
+        sus_text = always_redraw(
+            lambda: Text(
+                "Susceptable " + str(int(values[0]*100)) + "%",
+                font_size=16
+            ).next_to(sus_brace, RIGHT)
+        )
+        infected_text = always_redraw(
+            lambda: Text(
+                "Infected " + str(int(values[1]*100)) + "%",
+                font_size=16).next_to(infected_brace, RIGHT)
+        )
+        removed_text = always_redraw(
+            lambda: Text(
+                "Removed " + str(int(values[2]*100)) + "%",
+                font_size=16).next_to(removed_brace, RIGHT)
+        )
+
+        self.add(susceptible, infected, removed)
+        self.add(sus_brace, infected_brace, removed_brace)
+        self.add(sus_text, infected_text, removed_text)
 
         infection_point = [x_coordinates[0], y_coordinates[0]]
         queue = []
@@ -66,20 +114,9 @@ class SirGraph(Scene):
                         new_dot.move_to(dots[ptr].get_center())
                         self.add(new_dot)
                         ptr += 1
-                    self.remove(chart)
                     values[0] = (population - len(dots))/population
                     values[1] = (len(dots) - ptr)/population
                     values[2] = ptr/population
-                    chart = BarChart(
-                        values,
-                        bar_colors=[GREEN, RED, GREY],
-                        bar_names=["Susuptable", "Infected", "Removed"],
-                        x_length=10,
-                        y_axis_config={"font_size": 24},
-                    )
-                    chart.scale(0.75)
-                    chart.move_to([-3, 0, 0])
-                    self.add(chart)
                     self.wait(0.0001)
         for i in range(ptr, population):
             self.remove(dots[ptr])
@@ -87,18 +124,7 @@ class SirGraph(Scene):
             new_dot.move_to(dots[ptr].get_center())
             self.add(new_dot)
             ptr += 1
-            self.remove(chart)
             values[0] = (population - len(dots))/population
             values[1] = (len(dots) - ptr)/population
             values[2] = ptr/population
-            chart = BarChart(
-                values,
-                bar_colors=[GREEN, RED, GREY],
-                bar_names=["Susuptable", "Infected", "Removed"],
-                x_length=10,
-                y_axis_config={"font_size": 24},
-            )
-            chart.scale(0.75)
-            chart.move_to([-3, 0, 0])
-            self.add(chart)
             self.wait(0.0001)
