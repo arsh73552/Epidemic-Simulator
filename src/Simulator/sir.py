@@ -3,6 +3,7 @@ from manimlib import VGroup, Square, Dot, always_redraw, Text
 import random
 from typing import List
 
+
 class SirGraph(Scene):
     def construct(self):
         sq = Square().scale(2.2)
