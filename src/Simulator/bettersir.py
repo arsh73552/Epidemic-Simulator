@@ -96,7 +96,7 @@ class SirGraph(Scene):
                         plot_suseptible.append(plot_suseptible[len(plot_suseptible)-1])
                         self.wait(0.001)
                         ptr += 1
-            if(counter):
+            if counter:
                 self.remove(axes, graph_infected, graph_removed, graph_suseptible)
                 axes = Axes(
                     x_range=[0, len(plot_suseptible), 1],
@@ -120,7 +120,7 @@ class SirGraph(Scene):
             plot_infected.append(plot_infected[len(plot_infected) - 1] - 1)
             plot_removed.append(plot_removed[len(plot_removed) - 1] + 1)
             plot_suseptible.append(plot_suseptible[len(plot_suseptible) - 1])
-            if(i % 10 == 0 or ptr == population+1):
+            if i % 10 == 0 or ptr == population+1:
                 self.remove(axes, graph_infected, graph_removed, graph_suseptible)
                 axes = Axes(
                     x_range=[0, len(plot_suseptible), 1],
