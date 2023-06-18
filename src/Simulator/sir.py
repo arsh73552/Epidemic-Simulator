@@ -1,7 +1,7 @@
 from manimlib import Scene, RED, GREEN, GREY, Rectangle, Brace, RIGHT
 from manimlib import VGroup, Square, Dot, always_redraw, Text
 import random
-
+from typing import List
 
 class SirGraph(Scene):
     def construct(self):
@@ -21,7 +21,7 @@ class SirGraph(Scene):
             dot = Dot(radius=0.05, color=GREEN).move_to([x, y, 0])
             people.add(dot)
             self.add(dot)
-        values = [1, 0, 0]
+        values: List[float] = [1.0, 0.0, 0.0]
         custom_width = 5
 
         infected = always_redraw(

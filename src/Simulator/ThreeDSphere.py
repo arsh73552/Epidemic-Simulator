@@ -58,7 +58,7 @@ class surfaceExample(helperClass, Initialization):
         finalAnimations.append((Rotate(surface, 2*PI), 5))
         finalAnimations.append((ShowCreation(surface.mesh), 1))
         finalAnimations.append((ShowCreation(self.healthyDots), 5))
-        finalAnimations.append([ShowCreation(self.patient_zero), 1])
+        finalAnimations.append((ShowCreation(self.patient_zero), 1))
         return finalAnimations
 
     def construct_animation_BFS(self, coords):
