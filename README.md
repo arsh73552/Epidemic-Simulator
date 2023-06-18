@@ -1,10 +1,6 @@
-"# Epidemic-Simulator" 
-
 ![Tests](https://github.com/arsh73552/Epidemic-Simulator/actions/workflows/tests.yml/badge.svg)
 
 # Epidemic Simulator
-
-![Epidemic Simulator Logo](https://example.com/epidemic-simulator-logo.png)
 
 Welcome to the Epidemic Simulator project! This is an epidemic simulation tool built using the ManimGL library and OpenGL renderer. It allows you to choose a point on Earth as the starting point for the epidemic and simulate the spread of various viruses. The simulator provides visualization of the epidemic's progression, including SIR graphs.
 
