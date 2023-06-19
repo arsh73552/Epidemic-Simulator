@@ -1,5 +1,5 @@
 from manimlib import Scene, RED, GREEN, GREY, Rectangle, Brace, RIGHT
-from manimlib import VGroup, Square, Dot, always_redraw, Text
+from manimlib import VGroup, Square, Dot, always_redraw, Text, ShowCreation
 import random
 from typing import List
 
@@ -80,7 +80,7 @@ class SirGraph(Scene):
                 font_size=16).next_to(removed_brace, RIGHT)
         )
 
-        self.add(susceptible, infected, removed)
+        self.play(*[ShowCreation(susceptible), ShowCreation(infected), ShowCreation(removed)], run_time=0.5)
         self.add(sus_brace, infected_brace, removed_brace)
         self.add(sus_text, infected_text, removed_text)
 
@@ -129,3 +129,7 @@ class SirGraph(Scene):
             values[1] = (len(dots) - ptr)/population
             values[2] = ptr/population
             self.wait(0.0001)
+
+
+a = SirGraph()
+a.run()
