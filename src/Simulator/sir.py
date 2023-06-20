@@ -81,7 +81,6 @@ class SirGraph():
                 font_size=16).next_to(removed_brace, RIGHT)
         )
 
-
         finalAnimation.append((ShowCreation(susceptible), 1.0))
         finalAnimation.append((ShowCreation(infected), 1.0))
         finalAnimation.append((ShowCreation(removed), 1.0))
