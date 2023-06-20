@@ -1,14 +1,15 @@
-from manimlib import Scene, RED, GREEN, GREY, Rectangle, Brace, RIGHT
-from manimlib import VGroup, Square, Dot, always_redraw, Text
+from manimlib import FadeOut, RED, GREEN, GREY, Rectangle, Brace, RIGHT
+from manimlib import VGroup, Square, Dot, always_redraw, Text, ShowCreation
 import random
 from typing import List
 
 
-class SirGraph(Scene):
-    def construct(self):
+class SirGraph():
+    def construct_animation(self):
+        finalAnimation = []
         sq = Square().scale(2.2)
         sq.move_to([3, 0, 0])
-        self.add(sq)
+        finalAnimation.append((ShowCreation(sq), 1))
         x_coordinates = []
         y_coordinates = []
 
@@ -21,7 +22,7 @@ class SirGraph(Scene):
             y_coordinates.append(y)
             dot = Dot(radius=0.05, color=GREEN).move_to([x, y, 0])
             people.add(dot)
-            self.add(dot)
+            finalAnimation.append((ShowCreation(dot), 0.1))
         values: List[float] = [1.0, 0.0, 0.0]
         custom_width = 5
 
@@ -80,10 +81,15 @@ class SirGraph(Scene):
                 font_size=16).next_to(removed_brace, RIGHT)
         )
 
-        self.add(susceptible, infected, removed)
-        self.add(sus_brace, infected_brace, removed_brace)
-        self.add(sus_text, infected_text, removed_text)
-
+        finalAnimation.append((ShowCreation(susceptible), 1))
+        finalAnimation.append((ShowCreation(infected), 1))
+        finalAnimation.append((ShowCreation(removed), 1))
+        finalAnimation.append((ShowCreation(sus_brace), 1))
+        finalAnimation.append((ShowCreation(infected_brace), 1))
+        finalAnimation.append((ShowCreation(removed_brace), 1))
+        finalAnimation.append((ShowCreation(sus_text), 1))
+        finalAnimation.append((ShowCreation(infected_text), 1))
+        finalAnimation.append((ShowCreation(removed_text), 1))
         infection_point = [x_coordinates[0], y_coordinates[0]]
         queue = []
         queue.append(infection_point)
@@ -108,24 +114,24 @@ class SirGraph(Scene):
                     dots.add(dot)
                     visited[(x_coordinates[i], y_coordinates[i])] = True
                     queue.append([x_coordinates[i], y_coordinates[i]])
-                    self.add(dot)
+                    finalAnimation.append((ShowCreation(dot), 0.1))
                     if (len(dots) > (ptr+50)):
-                        self.remove(dots[ptr])
+                        finalAnimation.append((FadeOut(infected), 0.1))
                         new_dot = Dot(color=GREY)
                         new_dot.move_to(dots[ptr].get_center())
-                        self.add(new_dot)
+                        finalAnimation.append((ShowCreation(new_dot), 0.1))
                         ptr += 1
                     values[0] = (population - len(dots))/population
                     values[1] = (len(dots) - ptr)/population
                     values[2] = ptr/population
-                    self.wait(0.0001)
         for i in range(ptr, population):
-            self.remove(dots[ptr])
+            finalAnimation.append((FadeOut(dots[ptr]), 0.1))
             new_dot = Dot(color=GREY)
             new_dot.move_to(dots[ptr].get_center())
-            self.add(new_dot)
+            finalAnimation.append((ShowCreation(new_dot), 0.1))
             ptr += 1
             values[0] = (population - len(dots))/population
             values[1] = (len(dots) - ptr)/population
             values[2] = ptr/population
-            self.wait(0.0001)
+
+        return finalAnimation

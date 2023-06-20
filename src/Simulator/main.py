@@ -3,7 +3,7 @@ from manimlib import ShowCreation,  FadeIn, FadeOut
 from manimlib import RED
 from introduction import intro
 from ThreeDSphere import surfaceExample
-
+from SIR import SirGraph
 
 class Main(ThreeDScene):
     def gotKeyPress(self):
@@ -17,11 +17,13 @@ class Main(ThreeDScene):
                 self.play(animation[0], run_time=animation[1])
             else:
                 self.play(animation[0])
+        
         self.waitOver = False
         background = ImageMobject("test.jpg").set_height(8)
         self.play(FadeIn(background))
         self.wait_until(self.gotKeyPress)
         self.play(FadeOut(background), FadeOut(self.patient_zero))
+
         EarthAnimation = surfaceExample()
         anim2 = EarthAnimation.construct_animation_initialization(self.patient_zero.get_center())
         for animation in anim2:
@@ -30,9 +32,17 @@ class Main(ThreeDScene):
             else:
                 self.play(animation[0])
         dots = EarthAnimation.construct_animation_BFS(self.patient_zero.get_center())
-        print(len(dots))
         for dot in dots:
             self.play(dot.animate.set_color(RED), run_time=0.3)
+
+        SIR = SirGraph()
+        anim3 = SIR.construct_animation()
+
+        for animation in anim3:
+            if animation[1] != -1:
+                self.play(animation[0], run_time=animation[1])
+            else:
+                self.play(animation[0])
 
     def on_key_press(self, symbol: int, modifiers: int):
         from pyglet.window import key as pyglet_key
