@@ -28,4 +28,3 @@ class helperClass:
         if 'self.patient_zero' in locals():
             return True
         return False
- 

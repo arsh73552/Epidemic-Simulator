@@ -9,7 +9,7 @@ class SirGraph():
         finalAnimation = []
         sq = Square().scale(2.2)
         sq.move_to([3, 0, 0])
-        finalAnimation.append((ShowCreation(sq), 1))
+        finalAnimation.append((ShowCreation(sq), 1.0))
         x_coordinates = []
         y_coordinates = []
 
@@ -81,15 +81,15 @@ class SirGraph():
                 font_size=16).next_to(removed_brace, RIGHT)
         )
 
-        finalAnimation.append((ShowCreation(susceptible), 1))
-        finalAnimation.append((ShowCreation(infected), 1))
-        finalAnimation.append((ShowCreation(removed), 1))
-        finalAnimation.append((ShowCreation(sus_brace), 1))
-        finalAnimation.append((ShowCreation(infected_brace), 1))
-        finalAnimation.append((ShowCreation(removed_brace), 1))
-        finalAnimation.append((ShowCreation(sus_text), 1))
-        finalAnimation.append((ShowCreation(infected_text), 1))
-        finalAnimation.append((ShowCreation(removed_text), 1))
+        finalAnimation.append((ShowCreation(susceptible), 1.0))
+        finalAnimation.append((ShowCreation(infected), 1.0))
+        finalAnimation.append((ShowCreation(removed), 1.0))
+        finalAnimation.append((ShowCreation(sus_brace), 1.0))
+        finalAnimation.append((ShowCreation(infected_brace), 1.0))
+        finalAnimation.append((ShowCreation(removed_brace), 1.0))
+        finalAnimation.append((ShowCreation(sus_text), 1.0))
+        finalAnimation.append((ShowCreation(infected_text), 1.0))
+        finalAnimation.append((ShowCreation(removed_text), 1.0))
         infection_point = [x_coordinates[0], y_coordinates[0]]
         queue = []
         queue.append(infection_point)

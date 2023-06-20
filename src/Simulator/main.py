@@ -5,6 +5,7 @@ from introduction import intro
 from ThreeDSphere import surfaceExample
 from SIR import SirGraph
 
+
 class Main(ThreeDScene):
     def gotKeyPress(self):
         return self.waitOver
@@ -17,7 +18,7 @@ class Main(ThreeDScene):
                 self.play(animation[0], run_time=animation[1])
             else:
                 self.play(animation[0])
-        
+
         self.waitOver = False
         background = ImageMobject("test.jpg").set_height(8)
         self.play(FadeIn(background))
