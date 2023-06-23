@@ -5,6 +5,13 @@ import random
 
 class intro():
     def construct_animation(self):
+        '''
+            This function is used to create the introduction animation.
+            This includes the title, description and the information about the dots.
+            The function returns the list of animations.
+
+            Output: List of animations
+        '''
         finalAnimations = []
         name = Text("Epidemic Simulator").scale(2)
         finalAnimations.append((Write(name), 2.0))
