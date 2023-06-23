@@ -1,6 +1,6 @@
 from manimlib import ImageMobject, Sphere, SGroup, TexturedSurface, PI
-from manimlib import ShowCreation, SurfaceMesh, Rotate
-from manimlib import RED, BLUE, BLACK, IN, GREEN
+from manimlib import ShowCreation, Rotate
+from manimlib import RED, BLACK, IN, GREEN
 import random
 import time
 from helper import helperClass
@@ -15,6 +15,11 @@ class surfaceExample(helperClass, Initialization):
         helperClass.__init__(self)
 
     def construct_animation_initialization(self, coords):
+        '''
+            This function constructs the animation for the initialization of the earth
+            :param coords: The coordinates of the patient zero
+            :return: A list of tuples, where each tuple contains the animation and the time it takes to run
+        '''
         finalAnimations = []
         self.patient_zero = Sphere(radius=0.1)
         self.patient_zero.set_color(RED).move_to(self.custom_uv_func(coords[0], coords[1], self.canvas_height, self.canvas_width, self.radius))
@@ -35,11 +40,11 @@ class surfaceExample(helperClass, Initialization):
 
         earth = Sphere(radius=self.radius, fill_opacity=1).shift([0, 0, 1])
 
-        self.healthyDots = SGroup()
+        self.healthyDots = []
         for i in range(len(x_coordinates)):
             x, y, z = self.custom_uv_func(x_coordinates[i], y_coordinates[i], self.canvas_height, self.canvas_width, self.radius)
-            sphr = Sphere(radius=0.1).set_color(GREEN, opacity=1).move_to([x, y, z])
-            self.healthyDots.add(sphr)
+            sphr = Sphere(radius=0.03).set_color(GREEN, opacity=1).move_to([x, y, z])
+            self.healthyDots.append(sphr)
 
         earth.set_color(color=BLACK, opacity=1)
 
@@ -50,36 +55,43 @@ class surfaceExample(helperClass, Initialization):
 
         for mob in surfaces:
             mob.shift(IN)
-            mob.mesh = SurfaceMesh(mob)
-            mob.mesh.set_stroke(BLUE, 1, opacity=0.5)
 
         surface = surfaces[0]
         finalAnimations.append((ShowCreation(surface), 1))
         finalAnimations.append((Rotate(surface, 2*PI), 5))
-        finalAnimations.append((ShowCreation(surface.mesh), 1))
-        finalAnimations.append((ShowCreation(self.healthyDots), 5))
+        finalAnimations.append((ShowCreation(SGroup(*self.healthyDots)), 5))
         finalAnimations.append((ShowCreation(self.patient_zero), 1))
         return finalAnimations
 
     def construct_animation_BFS(self, coords):
-        dotsConvertingInOrer = SGroup()
-        unhealthyDots = SGroup()
-        unhealthyDots.add(self.patient_zero)
+        '''
+            This function constructs the animation for the BFS algorithm
+            :param coords: The coordinates of the patient zero
+            :return: A list of tuples, where each tuple contains the animation and the time it takes to run
+        '''
+        dotsConvertingInOrer = []  # This is used to keep track of the dots that are converting
+        unhealthyDots = []
+        unhealthyDots.append(self.patient_zero)
         lastIterationConversionDots = [self.patient_zero]
-        convertedDictionary = {}
+        removedDots: typing.List[Sphere] = []
+        interationCouner = 0
         while True:
-            convertedDots = SGroup()
-            for unhealthyDot in lastIterationConversionDots:
+            convertedDots = []
+            interationCouner += 1
+            for i, unhealthyDot in enumerate(lastIterationConversionDots):
                 for healthyDot in self.healthyDots:
-                    if self.distance_manhattan(unhealthyDot.get_center(), healthyDot.get_center()) < 1 and healthyDot not in convertedDictionary:
-                        if random.uniform(0, 1) < self.INFECTION_RATE:
-                            convertedDots.add(healthyDot)
-                            convertedDictionary[healthyDot] = True
+                    if self.distance_manhattan(unhealthyDot.get_center(), healthyDot.get_center()) < self.distance_threshold:
+                        if random.uniform(0, 1) < self.INFECTION_RATE and healthyDot not in convertedDots:
+                            convertedDots.append(healthyDot)
+                            self.healthyDots.remove(healthyDot)
+                            unhealthyDots.append(healthyDot)
+                            dotsConvertingInOrer.append((healthyDot, len(self.healthyDots), len(unhealthyDots), 0, len(removedDots)))
+                if (random.uniform(0, 1) < (0.85 ** i)):
+                    removedDots.append(unhealthyDot)
+                    unhealthyDots.remove(unhealthyDot)
+                    dotsConvertingInOrer.append((unhealthyDot, len(self.healthyDots), len(unhealthyDots), -1, len(removedDots)))
 
             lastIterationConversionDots = convertedDots
-            unhealthyDots.add(convertedDots)
-            for con in convertedDots:
-                dotsConvertingInOrer.add(con)
 
             if len(convertedDots) == 0:
                 break
